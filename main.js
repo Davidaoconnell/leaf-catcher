@@ -124,7 +124,6 @@ function detection() {
         updateScoreToScreen();
         sound.play();
     }
-
     if (leafY >= canvas.height) {
         // alert(`GAME OVER,\nScore:${myScore}`)
         sound3.play()
