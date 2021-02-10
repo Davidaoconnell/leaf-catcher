@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="leaf-favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="main.css">
+
+    <title>Leaf Drop</title>
+</head>
+
+<body>
+    <img id="can" src="./images/can.png" alt="garbage can" style="display: none;">
+    <img id="leaf" src="./images/green-leaf.png" alt="leaf" style="display: none;">
+    <img id="background" src="./images/js-game-background.png" style="display: none;" alt="game background">
+    <img id="biker" src="./images/biker.png" style="display: none;" alt="guy on a bike">
+
+
+    <div class="flex h-screen gameContainer">
+        <div class="m-auto text-center">
+            <h1 class="text-9xl font-black text-white">
+                <span class="bg-gradient-to-r text-transparent bg-clip-text from-green-500 to-green-300">Leaf
+                    Catcher</span>
+            </h1>
+            <h2 class="text-6xl py-5 font-bold text-green-300">Score:<span id="score"></span></h2>
+            <canvas id="myCanvas" width="800" height="800"
+                style="background-image: url(./images/js-game-background.png);">
+            </canvas>
+            <button class="p-4 my-6 bg-red-400 rounded-lg uppercase font-bold text-white focus:outline-none"
+                onclick="startGame(); backgroundMusic.play()" id="startButton">start
+                game</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        var sound = new Howl({
+            src: ['./game-sounds/dink-short.mp3']
+        });
+
+        var sound2 = new Howl({
+            src: ['./game-sounds/floating-01.mp3']
+        });
+
+        var sound3 = new Howl({
+            src: ['./game-sounds/buzz.mp3']
+        });
+
+        var backgroundMusic = new Howl({
+            src: ['./game-sounds/Leaf_Catcher_Theme_F_1.mp3']
+        });
+    </script>
+
+</body>
+
+</html>
