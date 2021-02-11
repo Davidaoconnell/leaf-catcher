@@ -7,6 +7,22 @@ var background = document.getElementById('background')
 var score = document.getElementById('score');
 var start = document.getElementById('startButton');
 
+//howler sounds
+var sound = new Howl({
+    src: ['./game-sounds/dink-short.mp3']
+});
+
+var sound2 = new Howl({
+    src: ['./game-sounds/floating-01.mp3']
+});
+
+var sound3 = new Howl({
+    src: ['./game-sounds/buzz.mp3']
+});
+
+var backgroundMusic = new Howl({
+    src: ['./game-sounds/Leaf_Catcher_Theme_F_1.mp3']
+});
 //Arrow keys defined with false values to start
 var rightPressed = false;
 var leftPressed = false;
@@ -66,7 +82,6 @@ function updateAll() {
     detection();
     updateScoreToScreen();
     loser();
-
 }
 
 function draw() {
@@ -137,15 +152,9 @@ function loser() {
         leafY = 0;
         sound3.play();
         alert(`GAME OVER \nScore:${myScore}`)
-        resetScore();
-
+        reset();
     }
 }
-
-// function scoreDown() {
-//     leafMotionY++
-//     sound3.play();
-// }
 
 //right left are for IE support
 function keyDownHandler(e) {
@@ -179,8 +188,8 @@ function leafReset() {
     }
 }
 
-function resetScore() {
+function reset() {
     myScore = 0;
+    backgroundMusic.stop();
+    bikerX = -500;
 }
-
-// loser();
