@@ -41,6 +41,8 @@ var score = document.getElementById('score');
 var number = score.innerHTML;
 var myScore = 0;
 
+var interval;
+
 var canSpeed = 25;
 window.onload = function () {
     //General must haves for canvas interaction
@@ -55,15 +57,16 @@ window.onload = function () {
 function startGame() {
     //FPS
     var framesPerSecond = 30;
-    var interval = setInterval(updateAll, 1000 / framesPerSecond);
+    interval = setInterval(updateAll, 1000 / framesPerSecond);
 }
 
 //Controled by setInterval() on load for how often it is called per second
 function updateAll() {
     draw();
-    moveAll();
     detection();
     updateScoreToScreen();
+    loser();
+
 }
 
 function draw() {
@@ -72,13 +75,6 @@ function draw() {
     context.drawImage(img2, leafX, leafY);
     context.drawImage(img3, bikerX, bikerY)
 
-}
-
-// function stopInterval() {
-//     clearInterval(interval)
-// }
-
-function moveAll() {
     leafY += leafMotionY;
 
     leafX += leafMotionX;
@@ -108,10 +104,7 @@ function moveAll() {
     if (leafX > canvas.width || leafX < 0) {
         leafMotionX *= -1
         // leafX = 0 has them come out the other side of the canvas maybe use for something
-
     }
-
-
 }
 
 function detection() {
@@ -124,22 +117,7 @@ function detection() {
         updateScoreToScreen();
         sound.play();
     }
-    if (leafY >= canvas.height) {
-        // alert(`GAME OVER,\nScore:${myScore}`)
-        sound3.play()
-        clearInterval(interval); //Needed for chrome to end game
 
-        // document.location.reload();
-    }
-}
-
-function leafReset() {
-    if (leafY >= 800) {
-        leafX = randomInt(15, 785)
-        leafY = 0;
-        scoreDown();
-        updateScoreToScreen();
-    }
 }
 
 //Scoring Functions
@@ -153,16 +131,21 @@ function scoreUp() {
     leafMotionY++
 }
 
-function scoreDown() {
-    leafMotionY++
-    sound3.play();
+function loser() {
+    if (leafY > canvas.height) {
+        clearInterval(interval);
+        leafY = 0;
+        sound3.play();
+        alert(`GAME OVER \nScore:${myScore}`)
+        resetScore();
+
+    }
 }
 
-function randomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max)
-    return Math.floor(Math.random() * (max - min) + min);
-}
+// function scoreDown() {
+//     leafMotionY++
+//     sound3.play();
+// }
 
 //right left are for IE support
 function keyDownHandler(e) {
@@ -180,3 +163,24 @@ function keyUpHandler(e) {
         leftPressed = false;
     }
 }
+
+function randomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max)
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
+function leafReset() {
+    if (leafY >= 800) {
+        leafX = randomInt(15, 785)
+        leafY = 0;
+        scoreDown();
+        updateScoreToScreen();
+    }
+}
+
+function resetScore() {
+    myScore = 0;
+}
+
+// loser();
