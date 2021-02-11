@@ -1,3 +1,14 @@
+// Get a reference to the database service
+const database = firebase.database().ref();
+console.log(firebase);
+
+var data = {
+    name: '',
+    score: 0
+}
+
+
+
 var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
 var img = document.getElementById('can');
@@ -150,7 +161,10 @@ function loser() {
         clearInterval(interval);
         leafY = 0;
         sound3.play();
-        alert(`GAME OVER \nScore:${myScore}`)
+
+        data.name = prompt('Enter Your Name')
+        data.score = myScore;
+        database.push(data);
         reset();
     }
 }
