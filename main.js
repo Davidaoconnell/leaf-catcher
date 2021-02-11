@@ -132,7 +132,6 @@ function detection() {
         updateScoreToScreen();
         sound.play();
     }
-
 }
 
 //Scoring Functions
@@ -192,4 +191,5 @@ function reset() {
     myScore = 0;
     backgroundMusic.stop();
     bikerX = -500;
+    canX = (canvas.width - canWidth) / 2;
 }
