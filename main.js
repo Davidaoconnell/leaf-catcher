@@ -33,8 +33,8 @@ var bikerY = 450;
 var bikerMotionX = 5;
 
 //Trash can dimensions
-const canHeight = 70;
-const canWidth = 50;
+const canHeight = 80;
+const canWidth = 120;
 
 //Leaf Dimensions
 const leafHeight = 50;
@@ -192,4 +192,7 @@ function reset() {
     backgroundMusic.stop();
     bikerX = -500;
     canX = (canvas.width - canWidth) / 2;
+    leftPressed = false;
+    rightPressed = false;
+    leafMotionY = 10;
 }
