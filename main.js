@@ -13,6 +13,7 @@ function gotData(data) {
         var name = scores[k].name;
         var score = scores[k].score;
         var li = document.createElement('li');
+        li.classList.add('pl-5', 'mx-auto')
         li.innerText = `${name}: ${score}`
         scoreList.appendChild(li)
         console.log(li)
