@@ -1,13 +1,34 @@
-// Get a reference to the database service
-const database = firebase.database().ref();
-console.log(firebase);
+// DATABASE STUFF
+const database = firebase.database();
+const ref = database.ref('scores');
+var scoreList = document.getElementById('scoreList');
 
+ref.on('value', gotData, errData);
+
+function gotData(data) {
+    var scores = data.val();
+    var keys = Object.keys(scores);
+    for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        var name = scores[k].name;
+        var score = scores[k].score;
+        var li = document.createElement('li');
+        li.innerText = `${name}: ${score}`
+        scoreList.appendChild(li)
+        console.log(li)
+
+    }
+}
+
+function errData(err) {
+    console.log('Error!');
+    console.log(err);
+}
 var data = {
     name: '',
     score: 0
 }
-
-
+// END OF DATABASE STUFF
 
 var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
@@ -163,8 +184,11 @@ function loser() {
         sound3.play();
 
         data.name = prompt('Enter Your Name')
+        if (!data.name) {
+            data.name = "anon"
+        }
         data.score = myScore;
-        database.push(data);
+        ref.push(data);
         reset();
     }
 }
