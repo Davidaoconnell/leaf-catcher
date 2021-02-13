@@ -1,5 +1,6 @@
 // DATABASE STUFF
 const database = firebase.database();
+const scoreRef = database.ref('scores')
 const scoreRefOrdered = database.ref('scores').orderByChild('score').limitToLast(5);
 const scoreRefRecent = database.ref('scores').limitToLast(5);
 
