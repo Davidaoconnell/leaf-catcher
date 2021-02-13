@@ -1,0 +1,8 @@
+#scoreList {
+    /* text-align: left; */
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    list-style: decimal;
+}
+
+#scoreList li {}

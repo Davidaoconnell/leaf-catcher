@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"></script>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="leaf-favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="images/leaf-favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="main.css">
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
@@ -56,8 +56,18 @@
                 onclick="startGame(); backgroundMusic.play()" id="startButton">start
                 game</button>
 
-            <ol class="flex" id="scoreList" class="list-decimal text-center">
-            </ol>
+            <div class="flex text-left">
+                <div class="px-4">
+                    <h2>Top Scores</h2>
+                    <ol id="scoreList">
+                    </ol>
+                </div>
+                <div class="px-4">
+                    <h2>Recent Scores</h2>
+                    <ol id="recentScoreList">
+                    </ol>
+                </div>
+            </div>
 
         </div>
     </div>

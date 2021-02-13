@@ -1,25 +1,68 @@
 // DATABASE STUFF
 const database = firebase.database();
-const ref = database.ref('scores');
-var scoreList = document.getElementById('scoreList');
+const scoreRefOrdered = database.ref('scores').orderByChild('score').limitToLast(5);
+const scoreRefRecent = database.ref('scores').limitToLast(5);
 
-ref.on('value', gotData, errData);
+scoreRefOrdered.on('value', (snapshot) => {
+    const scores = []
+    snapshot.forEach(d => {
+        scores.unshift(d.val())
+    })
+    updateScores(scores)
+})
+scoreRefRecent.on('value', (snapshot) => {
+    const scores = []
+    snapshot.forEach(d => {
+        scores.unshift(d.val())
+    })
+    updateRecentScores(scores)
+})
 
-function gotData(data) {
-    var scores = data.val();
-    var keys = Object.keys(scores);
-    for (var i = 0; i < keys.length; i++) {
-        var k = keys[i];
-        var name = scores[k].name;
-        var score = scores[k].score;
-        var li = document.createElement('li');
-        li.classList.add('pl-5', 'mx-auto')
-        li.innerText = `${name}: ${score}`
-        scoreList.appendChild(li)
-        console.log(li)
-
+const updateScores = (scores) => {
+    while (scoreList.firstChild) {
+        scoreList.removeChild(scoreList.firstChild);
     }
+    scores.forEach(s => {
+        var li = document.createElement('li');
+        li.classList.add('pl-5', 'mx-auto', 'font-semibold')
+        li.innerText = `${s.name}: ${s.score}`
+        scoreList.appendChild(li)
+    })
 }
+
+const updateRecentScores = (scores) => {
+    const recentScoreList = document.querySelector("#recentScoreList")
+    while (recentScoreList.firstChild) {
+        recentScoreList.removeChild(recentScoreList.firstChild);
+    }
+    scores.forEach(s => {
+        var li = document.createElement('li');
+        li.classList.add('pl-5', 'mx-auto', 'font-semibold')
+        li.innerText = `${s.name}: ${s.score}`
+        recentScoreList.appendChild(li)
+    })
+}
+
+
+// function gotData(data) {
+//     var dataEntry = data.val();
+//     var keys = Object.keys(dataEntry);
+
+//     for (var i = 0; i < keys.length; i++) {
+//         var k = keys[i];
+//         var name = dataEntry[k].name;
+//         var score = dataEntry[k].score;
+//         var li = document.createElement('li');
+//         li.classList.add('pl-5', 'mx-auto')
+//         li.innerText = `${name}: ${score}`
+//         scoreList.appendChild(li)
+//     }
+// }
+
+// function getTopScores() {
+//     scoreRef.orderBy('score').limit(5);
+
+// }
 
 function errData(err) {
     console.log('Error!');
@@ -189,7 +232,7 @@ function loser() {
             data.name = "anon"
         }
         data.score = myScore;
-        ref.push(data);
+        scoreRef.push(data);
         reset();
     }
 }
