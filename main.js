@@ -44,27 +44,6 @@ const updateRecentScores = (scores) => {
     })
 }
 
-
-// function gotData(data) {
-//     var dataEntry = data.val();
-//     var keys = Object.keys(dataEntry);
-
-//     for (var i = 0; i < keys.length; i++) {
-//         var k = keys[i];
-//         var name = dataEntry[k].name;
-//         var score = dataEntry[k].score;
-//         var li = document.createElement('li');
-//         li.classList.add('pl-5', 'mx-auto')
-//         li.innerText = `${name}: ${score}`
-//         scoreList.appendChild(li)
-//     }
-// }
-
-// function getTopScores() {
-//     scoreRef.orderBy('score').limit(5);
-
-// }
-
 function errData(err) {
     console.log('Error!');
     console.log(err);
